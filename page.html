@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trivia Game</title>
+    <link rel="stylesheet" href="page.css">
+</head>
+<body>
+
+    <!-- STATUS BAR -->
+    <!-- This full-width banner at the top tells everyone what's happening.
+         Its text and color change automatically as the game progresses.
+         The class on it (e.g. "state-idle", "state-spinning") is what
+         triggers the color change via CSS. -->
+    <div id="status-bar" class="state-idle">
+        Waiting for admin to start...
+    </div>
+
+    <main class="layout">
+
+        <!-- LEFT PANEL: question and answer buttons -->
+        <section class="left-panel">
+
+            <h2 id="category">Category: —</h2>
+            <p id="question">Press the admin button to begin.</p>
+
+            <!-- The four answer buttons.
+                 onclick calls handleAnswer() in page.js.
+                 They start disabled and only become clickable
+                 once someone has buzzed in. -->
+            <div class="answer-buttons">
+                <button id="btn-a" class="answer-btn" onclick="handleAnswer('A')" disabled>A</button>
+                <button id="btn-b" class="answer-btn" onclick="handleAnswer('B')" disabled>B</button>
+                <button id="btn-c" class="answer-btn" onclick="handleAnswer('C')" disabled>C</button>
+                <button id="btn-d" class="answer-btn" onclick="handleAnswer('D')" disabled>D</button>
+            </div>
+
+            <!-- Result message shown after an answer is submitted.
+                 Hidden by default, shown briefly after each round. -->
+            <div id="result-message" class="result-message hidden"></div>
+
+        </section>
+
+        <!-- RIGHT PANEL: player name entry and scoreboard -->
+        <section class="right-panel">
+
+            <h2>Scoreboard</h2>
+
+            <!-- Four player cards, one per player.
+                 Each card has:
+                   - A name input (replaced by a span once Enter is pressed)
+                   - A score display
+                 The card's color (yellow/red/blue/green) comes from CSS
+                 using the data-player attribute. -->
+
+            <div class="player-card" id="card-P1" data-player="P1">
+                <div class="player-name-area">
+                    <input
+                        class="name-input"
+                        id="name-P1"
+                        type="text"
+                        placeholder="Yellow player name"
+                        maxlength="20"
+                    >
+                </div>
+                <div class="player-score" id="score-P1">0</div>
+            </div>
+
+            <div class="player-card" id="card-P2" data-player="P2">
+                <div class="player-name-area">
+                    <input
+                        class="name-input"
+                        id="name-P2"
+                        type="text"
+                        placeholder="Red player name"
+                        maxlength="20"
+                    >
+                </div>
+                <div class="player-score" id="score-P2">0</div>
+            </div>
+
+            <div class="player-card" id="card-P3" data-player="P3">
+                <div class="player-name-area">
+                    <input
+                        class="name-input"
+                        id="name-P3"
+                        type="text"
+                        placeholder="Blue player name"
+                        maxlength="20"
+                    >
+                </div>
+                <div class="player-score" id="score-P3">0</div>
+            </div>
+
+            <div class="player-card" id="card-P4" data-player="P4">
+                <div class="player-name-area">
+                    <input
+                        class="name-input"
+                        id="name-P4"
+                        type="text"
+                        placeholder="Green player name"
+                        maxlength="20"
+                    >
+                </div>
+                <div class="player-score" id="score-P4">0</div>
+            </div>
+
+        </section>
+    </main>
+
+    <!-- page.js goes at the BOTTOM of the body, not in the <head>.
+         This ensures all the HTML elements above exist in the DOM
+         before the script tries to find them with getElementById. -->
+    <script src="page.js"></script>
+
+</body>
+</html>

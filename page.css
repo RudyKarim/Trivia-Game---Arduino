@@ -1,0 +1,269 @@
+/* ============================================================
+   TRIVIA GAME — page.css
+   ============================================================ */
+
+
+/* ── RESET & BASE ─────────────────────────────────────────── */
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    min-height: 100vh;
+    font-family: sans-serif;
+    background: #f0f2f8;
+}
+
+
+/* ── STATUS BAR ───────────────────────────────────────────── */
+
+/* The full-width banner at the very top of the page.
+   Its background color changes based on the game state
+   by swapping the class on the element. */
+
+#status-bar {
+    width: 100%;
+    padding: 14px 24px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    text-align: center;
+    color: #fff;
+    transition: background-color 0.4s ease;
+}
+
+/* Each state gets its own color so everyone in the room
+   can glance at the screen and know what's happening. */
+
+#status-bar.state-idle      { background-color: #6b7280; } /* gray    — nothing happening */
+#status-bar.state-question  { background-color: #3b82f6; } /* blue    — question loaded   */
+#status-bar.state-spinning  { background-color: #f59e0b; } /* amber   — spin in progress  */
+#status-bar.state-buzzable  { background-color: #8b5cf6; } /* purple  — buzz window open  */
+#status-bar.state-buzzed    { background-color: #ec4899; } /* pink    — someone buzzed    */
+#status-bar.state-correct   { background-color: #22c55e; } /* green   — correct answer    */
+#status-bar.state-wrong     { background-color: #ef4444; } /* red     — wrong answer      */
+#status-bar.state-answered  { background-color: #6b7280; } /* gray    — waiting for next  */
+#status-bar.state-error     { background-color: #1f2937; } /* dark    — connection error  */
+
+
+/* ── LAYOUT ───────────────────────────────────────────────── */
+
+.layout {
+    display: flex;
+    min-height: calc(100vh - 52px); /* subtract status bar height */
+}
+
+.left-panel,
+.right-panel {
+    width: 50%;
+    padding: 32px;
+}
+
+.left-panel {
+    background-color: #f5f7fb;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.right-panel {
+    background-color: #ffffff;
+    border-left: 1px solid #d7dbe3;
+}
+
+/* ── QUESTION TEXT ────────────────────────────────────────── */
+
+#category {
+    margin: 0;
+    font-size: 1rem;
+    font-weight: 600;
+    color: #6b7280;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+#question {
+    margin: 0;
+    font-size: 1.3rem;
+    font-weight: 500;
+    color: #1f2937;
+    line-height: 1.5;
+}
+
+
+/* ── ANSWER BUTTONS ───────────────────────────────────────── */
+
+.answer-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 8px;
+}
+
+.answer-btn {
+    width: 100%;
+    padding: 14px 20px;
+    font-size: 1rem;
+    font-weight: 500;
+    text-align: left;
+    border: 2px solid #d1d5db;
+    border-radius: 8px;
+    background: #ffffff;
+    color: #1f2937;
+    cursor: pointer;
+    transition: background 0.2s, border-color 0.2s, opacity 0.2s;
+}
+
+/* Hover effect — only when the button is enabled */
+.answer-btn:not(:disabled):hover {
+    background: #eff6ff;
+    border-color: #3b82f6;
+}
+
+/* Disabled state — greyed out, not clickable */
+.answer-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+/* Correct answer revealed after submission */
+.answer-btn.answer-correct {
+    background: #dcfce7;
+    border-color: #22c55e;
+    color: #15803d;
+    font-weight: 700;
+}
+
+/* The wrong answer that was selected */
+.answer-btn.answer-wrong {
+    background: #fee2e2;
+    border-color: #ef4444;
+    color: #b91c1c;
+}
+
+
+/* ── RESULT MESSAGE ───────────────────────────────────────── */
+
+/* Shown below the answer buttons after a round is resolved. */
+
+.result-message {
+    padding: 14px 18px;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 600;
+}
+
+.result-message.hidden {
+    display: none;
+}
+
+.result-message.result-correct {
+    background: #dcfce7;
+    color: #15803d;
+    border: 1px solid #22c55e;
+}
+
+.result-message.result-wrong {
+    background: #fee2e2;
+    color: #b91c1c;
+    border: 1px solid #ef4444;
+}
+
+
+/* ── SCOREBOARD HEADING ───────────────────────────────────── */
+
+.right-panel h2 {
+    margin: 0 0 20px 0;
+    font-size: 1.2rem;
+    color: #374151;
+}
+
+
+/* ── PLAYER CARDS ─────────────────────────────────────────── */
+
+/* Each player gets a card with their color on the left border. */
+
+.player-card {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px 18px;
+    margin-bottom: 12px;
+    border-radius: 10px;
+    border: 2px solid #e5e7eb;
+    background: #f9fafb;
+    transition: border-color 0.2s, box-shadow 0.2s, opacity 0.3s;
+    border-left-width: 6px; /* thick colored left border = team color */
+}
+
+/* Team colors — matched to the physical button colors */
+.player-card[data-player="P1"] { border-left-color: #eab308; } /* yellow */
+.player-card[data-player="P2"] { border-left-color: #ef4444; } /* red    */
+.player-card[data-player="P3"] { border-left-color: #3b82f6; } /* blue   */
+.player-card[data-player="P4"] { border-left-color: #22c55e; } /* green  */
+
+/* Buzzer active — pulsing border to highlight who buzzed in */
+.player-card.buzzer-active {
+    border-color: #ec4899;
+    box-shadow: 0 0 0 3px #fbcfe8;
+    background: #fdf2f8;
+}
+
+/* Disqualified — dimmed to show the player can't buzz this round */
+.player-card.disqualified {
+    opacity: 0.4;
+}
+
+/* Name area — holds either the input or the confirmed name span */
+.player-name-area {
+    flex: 1;
+    margin-right: 16px;
+}
+
+/* Name input field */
+.name-input {
+    width: 100%;
+    padding: 6px 10px;
+    font-size: 0.95rem;
+    border: 1px solid #d1d5db;
+    border-radius: 6px;
+    background: #fff;
+    color: #1f2937;
+    outline: none;
+}
+
+.name-input:focus {
+    border-color: #3b82f6;
+    box-shadow: 0 0 0 2px #bfdbfe;
+}
+
+/* Confirmed name (replaces the input after Enter is pressed) */
+.player-name-display {
+    font-size: 1rem;
+    font-weight: 600;
+    color: #1f2937;
+}
+
+/* Score badge — large number on the right side of the card */
+.player-score {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: #374151;
+    min-width: 48px;
+    text-align: right;
+}
+
+
+/* ── RESPONSIVE ───────────────────────────────────────────── */
+
+@media (max-width: 768px) {
+    .layout {
+        flex-direction: column;
+    }
+
+    .left-panel,
+    .right-panel {
+        width: 100%;
+    }
+}

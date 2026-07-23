@@ -1,0 +1,31 @@
+# Node.js dependencies
+node_modules/
+
+# Python dependencies
+__pycache__/
+*.py[cod]
+
+# System files
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+
+# Temporary files
+*.tmp
+*.swp
+
+# Compiled files
+*.out
+*.class
+*.o
+
+# IDE settings
+.vscode/
+.idea/
+*.iml
+
+# OS-specific files
+*.bak
+*.orig
