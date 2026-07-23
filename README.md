@@ -51,7 +51,7 @@ Make sure Node.js is installed.
 
 Clone the repository:
 ```python
-git clone https://github.com/KhaledMourabet/projet_num.git
+git clone https://github.com/RudyKarim/Trivia-Game---Arduino.git
 cd projet_num
 ```
 
